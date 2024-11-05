@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  express-app:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"  # Memetakan port 80 di host ke port 80 di kontainer
+    depends_on:
+      - express-app
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d  # Mengaitkan konfigurasi Nginx
